@@ -1,7 +1,21 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      Hola
+      <h1>Preguntas</h1>
+
+      <div class="text-right">
+        <%= link_to "Hacer una Pregunta", new_question_path, class: "btn btn-primary" %>
+      </div>
+      <table class="table">
+        <tbody>
+          <% @questions.each do |question| %>
+            <tr>
+              <td><%= question.answers.count %></td>
+              <td><%= link_to question.title, question %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
