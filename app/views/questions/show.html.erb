@@ -12,14 +12,16 @@
           </div>
         <% end %>
 
-        <h4>Tu Respuesta</h4>
-        <%= form_for [@question, @answer] do |f| %>
-          <div class="form-group">
-            <%= f.text_area :description, class: "form-control input-lg" %>
-          </div>
-          <div class="text-right">
-            <%= f.submit "Enviar Respuesta", class: "btn btn-primary" %>
-          </div>
+        <% if signed_in? %>
+          <h4>Tu Respuesta</h4>
+          <%= form_for [@question, @answer] do |f| %>
+            <div class="form-group">
+              <%= f.text_area :description, class: "form-control input-lg" %>
+            </div>
+            <div class="text-right">
+              <%= f.submit "Enviar Respuesta", class: "btn btn-primary" %>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>
