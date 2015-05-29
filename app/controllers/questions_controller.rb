@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  include Votable
+
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
@@ -22,7 +24,6 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @answer = @question.answers.new
   end
 
   private
