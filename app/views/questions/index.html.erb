@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container questions-page">
   <div class="row">
     <div class="col-sm-12">
       <h1>Preguntas</h1>
@@ -6,13 +6,23 @@
       <div class="text-right">
         <%= link_to "Hacer una Pregunta", new_question_path, class: "btn btn-primary" %>
       </div>
-      <table class="table">
+
+      <table class="table questions-list">
         <tbody>
           <% @questions.each do |question| %>
             <tr>
-              <td><%= question.votes.count %></td>
-              <td><%= question.answers.count %></td>
-              <td><%= link_to question.title, question %></td>
+              <td class="metric">
+                <span class="metric-value"><%= question.votes.count %></span>
+                <span class="metric-label">Votos</span>
+              </td>
+              <td class="metric">
+                <span class="metric-value"><%= question.answers.count %></span>
+                <span class="metric-label">Respuestas</span>
+              </td>
+              <td class="question-info">
+                <span class="question-title"><%= link_to question.title, question %></span>
+                <span class="question-details">Preguntó <%= question.user.email %> hace <%= distance_of_time_in_words(question.created_at, Date.current) %></span>
+              </td>
             </tr>
           <% end %>
         </tbody>
