@@ -13,8 +13,6 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
-    @question.user = current_user
-
     if @question.save
       redirect_to questions_path, notice: "La pregunta se ha publicado con éxito"
     else
@@ -28,6 +26,6 @@ class QuestionsController < ApplicationController
 
   private
     def question_params
-      params.require(:question).permit(:title, :description)
+      params.require(:question).permit(:title, :description).merge(user: current_user)
     end
 end

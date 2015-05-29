@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   end
 
   resources :questions, only: [:index, :new, :create, :show], concerns: :votable do
-    resources :answers, only: [:create], concerns: :votable
+    resources :answers, only: [:create], concerns: :votable do
+      resources :comments, module: :answers
+    end
+
+    resources :comments, module: :questions
   end
 
   devise_for :users

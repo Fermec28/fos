@@ -10,6 +10,7 @@
         <tbody>
           <% @questions.each do |question| %>
             <tr>
+              <td><%= question.votes.count %></td>
               <td><%= question.answers.count %></td>
               <td><%= link_to question.title, question %></td>
             </tr>

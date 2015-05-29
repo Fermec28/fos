@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
-      <h1><%= @question.title %></h1>
+      <h2><%= @question.title %></h2>
       <p><%= @question.description %></p>
       <div>
         <% if @question.voted_by? current_user %>
@@ -10,9 +10,28 @@
           <%= link_to "Vote", vote_question_path(@question), method: :put %>
         <% end %>
       </div>
+      <div class="question-comments">
+        <% @question.comments.each do |comment| %>
+          <div class="comment">
+            <%= comment.body %>
+          </div>
+        <% end %>
+
+        <h4>Agrega un comentario</h4>
+        <div class="new-question-comment">
+          <%= form_for [@question, Comment.new] do |f| %>
+            <div class="form-group">
+              <%= f.text_area :body, class: "form-control" %>
+            </div>
+            <div>
+              <%= f.submit "Comentar", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
 
       <div class="answers">
-        <h4><%= @question.answers.length %> Respuesta(s)</h4>
+        <h3><%= @question.answers.length %> Respuesta(s)</h3>
         <% @question.answers.each do |answer| %>
           <div class="answer">
             <div>Id: <%= answer.id %></div>
@@ -26,10 +45,30 @@
               <% end %>
             </div>
           </div>
+
+          <div class="answer-comments">
+            <% answer.comments.each do |comment| %>
+              <div class="comment">
+                <%= comment.body %>
+              </div>
+            <% end %>
+
+            <h4>Agrega un comentario</h4>
+            <div class="new-answer-comment">
+              <%= form_for [@question, answer, Comment.new] do |f| %>
+                <div class="form-group">
+                  <%= f.text_area :body, class: "form-control" %>
+                </div>
+                <div>
+                  <%= f.submit "Comentar", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
         <% end %>
 
         <% if signed_in? %>
-          <h4>Tu Respuesta</h4>
+          <h3>Tu Respuesta</h3>
           <%= form_for [@question, @question.answers.new] do |f| %>
             <div class="form-group">
               <%= f.text_area :description, class: "form-control input-lg" %>
