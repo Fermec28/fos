@@ -16,7 +16,7 @@
             <% end %>
           <% end %>
         </div>
-        <p><%= markdown @question.description %></p>
+        <div class="body"><%= markdown @question.description %></div>
       </div>
       <div class="qa-comments">
         <% @question.comments.each do |comment| %>
@@ -58,7 +58,7 @@
               <% end %>
             <% end %>
 
-            <p><%= markdown answer.description %></p>
+            <div class="body"><%= markdown answer.description %></div>
           </div>
 
           <div class="qa-comments">
