@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all.order('created_at DESC')
+    @questions = @questions.where('title like ?', "%#{params[:q]}%") unless params[:q].blank?
   end
 
   def new
