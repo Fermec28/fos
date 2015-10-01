@@ -2,6 +2,16 @@
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
       <h2>Publicar Pregunta</h2>
+
+      <% if @question.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+          <% @question.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
       <%= form_for @question do |f| %>
         <div class="form-group">
           <%= f.text_field :title, class: "form-control input-lg", placeholder: "Título" %>

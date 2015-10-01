@@ -16,6 +16,8 @@ class Question < ActiveRecord::Base
   has_many :votes, as: :votable
   has_many :comments, as: :commentable
 
+  validates :title, :description, presence: true
+
   def voted_by?(user)
     votes.exists?(user: user)
   end

@@ -3,15 +3,15 @@ Rails.application.routes.draw do
 
   concern :votable do
     put    'vote' => :vote,   on: :member
-    delete 'vote' => :unvote, on: :member
+    delete 'unvote' => :unvote, on: :member
   end
 
   resources :questions, only: [:index, :new, :create, :show], concerns: :votable do
+    resources :comments, module: :questions
+
     resources :answers, only: [:create], concerns: :votable do
       resources :comments, module: :answers
     end
-
-    resources :comments, module: :questions
   end
 
   devise_for :users

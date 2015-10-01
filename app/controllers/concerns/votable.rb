@@ -16,6 +16,6 @@ module Votable
   end
 
   def question_path
-    @votable.respond_to?(:question) ? @votable.question : @votable
+    votable.respond_to?(:question) ? @votable.question : @votable
   end
 end

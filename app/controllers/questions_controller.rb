@@ -5,7 +5,9 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all.order('created_at DESC')
-    @questions = @questions.where('title like ?', "%#{params[:q]}%") unless params[:q].blank?
+    if params[:q]
+      @questions = @questions.where('title like ?', "%#{params[:q]}%")
+    end
   end
 
   def new
@@ -14,6 +16,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
+    @question.user = current_user
     if @question.save
       redirect_to questions_path, notice: "La pregunta se ha publicado con éxito"
     else
@@ -27,6 +30,6 @@ class QuestionsController < ApplicationController
 
   private
     def question_params
-      params.require(:question).permit(:title, :description).merge(user: current_user)
+      params.require(:question).permit(:title, :description)
     end
 end

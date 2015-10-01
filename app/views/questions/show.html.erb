@@ -19,13 +19,10 @@
         <div class="body"><%= markdown @question.description %></div>
       </div>
       <div class="qa-comments">
-        <% @question.comments.each do |comment| %>
-          <div class="comment">
-            <%= comment.body %>
-          </div>
-        <% end %>
+        <%= render 'questions/comments', commentable: @question %>
 
         <div class="new-qa-comment">
+          <%= render 'questions/errors', resource: @question_comment %>
           <%= form_for [@question, Comment.new] do |f| %>
             <div class="form-group">
               <%= f.text_area :body, class: "form-control", placeholder: "Agrega un comentario" %>
@@ -46,29 +43,15 @@
 
         <% @question.answers.each do |answer| %>
           <div class="answer qa-description">
-            <% if answer.voted_by? current_user %>
-              <%= link_to vote_question_answer_path(@question, answer), class: "qa-upvote upvote-active", method: :delete do %>
-                <span class="upvote-arrow"></span>
-                <span class="upvote-count"><%= answer.votes.count %></span>
-              <% end %>
-            <% else %>
-              <%= link_to vote_question_answer_path(@question, answer), class: "qa-upvote", method: :put do %>
-                <span class="upvote-arrow"></span>
-                <span class="upvote-count"><%= answer.votes.count %></span>
-              <% end %>
-            <% end %>
-
             <div class="body"><%= markdown answer.description %></div>
           </div>
 
           <div class="qa-comments">
-            <% answer.comments.each do |comment| %>
-              <div class="comment">
-                <%= comment.body %>
-              </div>
-            <% end %>
+            <%= render 'questions/comments', commentable: answer %>
 
+            <% puts answer.inspect %>
             <div class="new-qa-comment">
+              <%= render 'questions/errors', resource: @answer_comment %>
               <%= form_for [@question, answer, Comment.new] do |f| %>
                 <div class="form-group">
                   <%= f.text_area :body, class: "form-control", placeholder: "Agrega un comentario" %>
@@ -84,6 +67,7 @@
         <% if signed_in? %>
           <div class="new-answer">
             <h3>Tu Respuesta</h3>
+            <%= render 'questions/errors', resource: @answer %>
             <%= form_for [@question, @question.answers.new] do |f| %>
               <div class="form-group">
                 <%= f.text_area :description, rows: 5, class: "form-control input-lg" %>

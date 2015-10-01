@@ -20,4 +20,12 @@ module ApplicationHelper
     }
     Redcarpet::Markdown.new(renderer, options).render(text).html_safe
   end
+
+  def bootstrap_class_for(flash_type)
+    flash_types = { success: "alert-success",
+                    error: "alert-danger",
+                    alert: "alert-warning",
+                    notice: "alert-info" }
+    flash_types[flash_type.to_sym] || alert-block
+  end
 end

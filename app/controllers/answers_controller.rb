@@ -10,6 +10,7 @@ class AnswersController < ApplicationController
     if @answer.save
       redirect_to @question, notice: "Tu respuesta ha sido creada con éxito"
     else
+      @question.answers.reset # removes the invalid answer by reloading from DB
       render 'questions/show'
     end
   end

@@ -1,0 +1,18 @@
+es:
+  activerecord:
+    attributes:
+      user:
+        password: "Contraseña"
+      question:
+        title: "Título"
+        description: "Descripción"
+      answer:
+        description: "Descripción"
+      comment:
+        body: "El comentario"
+
+  devise:
+    sessions:
+      user:
+        signed_in: ""
+        signed_out: ""
